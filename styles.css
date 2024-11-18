@@ -3,22 +3,21 @@ body {
     text-align: center;
     margin: 20px;
     background-color: #f9f9f9;
-}
-
-.tree-container {
+  }
+  
+  .tree-container {
     margin: 40px auto;
     text-align: center;
     width: fit-content;
-    position: relative;
-}
-
-.node-level {
+  }
+  
+  .node-level {
     display: flex;
     justify-content: center;
     margin: 30px 0;
-}
-
-.node {
+  }
+  
+  .node {
     width: 60px;
     height: 60px;
     background-color: #e8f5e9;
@@ -28,26 +27,19 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0 20px;
-    /* Espaciado horizontal entre nodos */
     font-weight: bold;
     font-size: 16px;
     color: #2e7d32;
-}
-
-
-.node.active {
+  }
+  
+  .node.active {
     background-color: #81c784;
     color: white;
     transform: scale(1.1);
     border-color: #2e7d32;
-}
-
-
-.controls {
-    margin-top: 20px;
-}
-
-.controls button {
+  }
+  
+  .controls button {
     margin: 5px;
     padding: 10px 20px;
     font-size: 14px;
@@ -56,16 +48,14 @@ body {
     color: white;
     border: none;
     border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s;
-}
-
-.controls button:hover {
+  }
+  
+  .controls button:hover {
     background-color: #0056b3;
-}
-
-.result {
-    margin-top: 10px;
+  }
+  
+  .result {
+    margin-top: 20px;
     padding: 10px;
     font-size: 16px;
     background-color: #d4edda;
@@ -74,7 +64,6 @@ body {
     border-radius: 5px;
     display: none;
     max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
   }
   

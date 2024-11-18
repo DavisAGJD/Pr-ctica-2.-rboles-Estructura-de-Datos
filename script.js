@@ -8,8 +8,8 @@ const tree1 = new BinaryTree();
 tree1.root = new Node("H");
 tree1.root.left = new Node("I");
 tree1.root.right = new Node("M");
-tree1.root.left.left = new Node("E");
-tree1.root.left.right = new Node("A");
+tree1.root.left.right = new Node("E");
+tree1.root.right.left = new Node("A");
 trees.push({ tree: tree1, id: 1 });
 
 // Árbol 2
@@ -44,22 +44,23 @@ trees.push({ tree: tree3, id: 3 });
 const tree4 = new BinaryTree();
 tree4.root = new Node("A");
 tree4.root.left = new Node("B");
-tree4.root.right = new Node("C");
+tree4.root.middle = new Node("C");
 tree4.root.left.left = new Node("D");
-tree4.root.left.right = new Node("E");
-tree4.root.left.right.left = new Node("J");
-tree4.root.left.right.left.left = new Node("Q");
-tree4.root.left.right.left.right = new Node("R");
-tree4.root.left.right.right = new Node("K");
-tree4.root.left.right.right.right = new Node("F");
-tree4.root.right.left = new Node("G");
-tree4.root.right.left.left = new Node("L");
-tree4.root.right.left.right = new Node("M");
-tree4.root.right.right = new Node("H");
-tree4.root.right.right.left = new Node("Ñ");
-tree4.root.right.right.right = new Node("P");
-tree4.root.right.right.right.right = new Node("I");
-tree4.root.right.right.right.left = new Node("O");
+tree4.root.left.middle = new Node("E");
+tree4.root.left.right = new Node("F");
+tree4.root.left.middle.left = new Node("J");
+tree4.root.left.middle.right = new Node("K");
+tree4.root.left.middle.left.left = new Node("Q");
+tree4.root.left.middle.left.right = new Node("R");
+tree4.root.middle.left = new Node("G");
+tree4.root.middle.middle = new Node("H");
+tree4.root.middle.right = new Node("I");
+tree4.root.middle.left.left = new Node("L");
+tree4.root.middle.left.middle = new Node("M");
+tree4.root.middle.left.right = new Node("N");
+tree4.root.middle.middle.left = new Node("Ñ");
+tree4.root.middle.middle.middle = new Node("O");
+tree4.root.middle.middle.right = new Node("P");
 trees.push({ tree: tree4, id: 4 });
 
 // Árbol 5
@@ -78,10 +79,11 @@ tree5.root.right.right = new Node("G");
 tree5.root.right.left.left = new Node("L");
 tree5.root.right.left.right = new Node("M");
 tree5.root.right.right.left = new Node("N");
-tree5.root.right.right.left.left = new Node("O");
-tree5.root.right.right.left.left.left = new Node("X");
-tree5.root.right.right.left.left.right = new Node("Y");
+tree5.root.right.right.right = new Node("O");
+tree5.root.right.right.right.left = new Node("X");
+tree5.root.right.right.right.left.right = new Node("Y");
 trees.push({ tree: tree5, id: 5 });
+
 
 // Función para renderizar los árboles
 function renderTree(tree, id) {
@@ -102,7 +104,10 @@ function renderTree(tree, id) {
     nodeElement.innerText = node.value;
     nodeElement.id = `node-${id}-${node.value}`;
     levelContainer.appendChild(nodeElement);
+
+    // Recorrer nodos: izquierdo, medio, derecho
     traverse(node.left, level + 1);
+    traverse(node.middle, level + 1);
     traverse(node.right, level + 1);
   }
 
@@ -111,12 +116,11 @@ function renderTree(tree, id) {
   const controls = document.createElement("div");
   controls.classList.add("controls");
   controls.innerHTML = `
-      <button onclick="startTraversal('Amplitud', ${id})">Amplitud</button>
+      <button onclick="startTraversal('amplitud', ${id})">Amplitud</button>
       <button onclick="startTraversal('preorden', ${id})">Preorden</button>
       <button onclick="startTraversal('inorden', ${id})">Inorden</button>
       <button onclick="startTraversal('postorden', ${id})">Postorden</button>
-      
-    `;
+  `;
   container.appendChild(controls);
 
   const resultDiv = document.createElement("div");
@@ -126,6 +130,7 @@ function renderTree(tree, id) {
 
   return container;
 }
+
 
 // Renderizar todos los árboles
 function renderTrees() {
@@ -144,10 +149,10 @@ window.startTraversal = (type, treeId) => {
   const { tree } = trees.find((t) => t.id === treeId);
   const resultDiv = document.querySelector(`#result-${treeId}`);
   let steps = [];
-  if (type === "preorder") steps = tree.preorderTraversal();
-  if (type === "inorder") steps = tree.inorderTraversal();
-  if (type === "postorder") steps = tree.postorderTraversal();
-  if (type === "breadth") steps = tree.breadthFirstTraversal();
+  if (type === "preorden") steps = tree.preorderTraversal();
+  if (type === "inorden") steps = tree.inorderTraversal();
+  if (type === "postorden") steps = tree.postorderTraversal();
+  if (type === "amplitud") steps = tree.breadthFirstTraversal();
 
   let index = 0;
 
@@ -164,9 +169,7 @@ window.startTraversal = (type, treeId) => {
       index++;
       setTimeout(highlightNode, 1000);
     } else {
-      resultDiv.innerText = `Recorrido ${type} (Árbol ${treeId}): ${steps.join(
-        ", "
-      )}`;
+      resultDiv.innerText = `Recorrido ${type} (Árbol ${treeId}): ${steps.join(", ")}`;
       resultDiv.style.display = "block";
     }
   }
